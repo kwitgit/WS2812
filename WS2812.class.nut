@@ -82,9 +82,27 @@ class WS2812 {
     // NOTE: set(index, color) replaces v1.x.x's writePixel(p, color) method
     function set(index, color) {
         assert(index >= 0 && index < _frameSize);
-        assert(color[0] >= 0 && color[0] <= 255);
-        assert(color[1] >= 0 && color[1] <= 255);
-        assert(color[2] >= 0 && color[2] <= 255);
+        try {
+            assert(color[0] >= 0 && color[0] <= 255);
+        } catch(color0error) {
+            // Recover by setting color to white
+            server.error("Tried to change color[0] to " + color[0] + " but valid values are 0 to 255.")
+            set color[0] = 255;
+        }
+        try {
+            assert(color[1] >= 0 && color[1] <= 255);
+        } catch(color1error) {
+            // Recover by setting color to white
+            server.error("Tried to change color[1] to " + color[1] + " but valid values are 0 to 255.")
+            set color[1] = 255;
+        }
+        try {
+            assert(color[2] >= 0 && color[2] <= 255);
+        } catch(color2error) {
+            // Recover by setting color to white
+            server.error("Tried to change color[2] to " + color[2] + " but valid values are 0 to 255.")
+            set color[2] = 255;
+        }
 
         _frame.seek(index * BYTES_PER_PIXEL);
 
@@ -109,9 +127,27 @@ class WS2812 {
         // Make sure we're not out of bounds
         assert(start >= 0 && start < _frameSize);
         assert(end >=0 && end < _frameSize)
-        assert(color[0] >= 0 && color[0] <= 255);
-        assert(color[1] >= 0 && color[1] <= 255);
-        assert(color[2] >= 0 && color[2] <= 255);
+        try {
+            assert(color[0] >= 0 && color[0] <= 255);
+        } catch(color0error) {
+            // Recover by setting color to white
+            server.error("Tried to change color[0] to " + color[0] + " but valid values are 0 to 255.")
+            set color[0] = 255;
+        }
+        try {
+            assert(color[1] >= 0 && color[1] <= 255);
+        } catch(color1error) {
+            // Recover by setting color to white
+            server.error("Tried to change color[1] to " + color[1] + " but valid values are 0 to 255.")
+            set color[1] = 255;
+        }
+        try {
+            assert(color[2] >= 0 && color[2] <= 255);
+        } catch(color2error) {
+            // Recover by setting color to white
+            server.error("Tried to change color[2] to " + color[2] + " but valid values are 0 to 255.")
+            set color[2] = 255;
+        }
 
         // Flip start & end if required
         if (start > end) {
